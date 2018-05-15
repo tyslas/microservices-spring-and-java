@@ -19,3 +19,16 @@ public class UserDAOService {
     return user.getId(); // close transaction
   }
 }
+
+/*
+public class SomeEntityDAOService {
+
+  @PersistenceContext
+  private EntityManager entityManager;
+
+  public long insert(SomeEntity entity) {
+    entityManager.persist(user); // open transaction
+    return user.getId(); // close transaction
+  }
+}
+*/

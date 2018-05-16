@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+// although this is called 'UserResource' it functions as a 'Controller'
 @RestController
 public class UserResource {
 

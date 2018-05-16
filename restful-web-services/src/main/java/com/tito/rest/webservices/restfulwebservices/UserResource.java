@@ -2,9 +2,7 @@ package com.tito.rest.webservices.restfulwebservices;
 
 import com.tito.rest.webservices.restfulwebservices.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,14 @@ public class UserResource {
   @GetMapping("/users/{id}")
   public User retrieveUser(@PathVariable int id) {
     return service.findOne(id);
+  }
+
+  // return status code => CREATED
+  // input - details of user
+  // output - CREATED & return the created URI
+  @PostMapping("/users")
+  public String createUser(@RequestBody User user) {
+    User savedUser = service.save(user);
+    return "/users/" + savedUser.getId();
   }
 }

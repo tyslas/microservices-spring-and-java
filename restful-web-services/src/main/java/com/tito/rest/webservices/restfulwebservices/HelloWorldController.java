@@ -1,8 +1,6 @@
 package com.tito.rest.webservices.restfulwebservices;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 // Controller: responsible for handling HTTP requests
@@ -17,6 +15,12 @@ public class HelloWorldController {
   @GetMapping(path="/hello-world") // method doesn't need to be specified w/this annotation
   public String helloWorld() {
     return "hello world!";
+  }
+
+  // create a GET 'mapping' to /hello-world-bean
+  @GetMapping(path="/hello-world-bean")
+  public HelloWorldBean helloWorldBean() {
+    return new HelloWorldBean("hello world!");
   }
 
 }

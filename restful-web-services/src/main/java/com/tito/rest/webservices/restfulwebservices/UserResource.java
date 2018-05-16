@@ -1,6 +1,7 @@
 package com.tito.rest.webservices.restfulwebservices;
 
 import com.tito.rest.webservices.restfulwebservices.user.User;
+import com.tito.rest.webservices.restfulwebservices.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,11 @@ public class UserResource {
   //retrieveUser(int id)
   @GetMapping("/users/{id}")
   public User retrieveUser(@PathVariable int id) {
-    return service.findOne(id);
+    User user = service.findOne(id);
+    if (user == null) {
+      throw new UserNotFoundException("id-" + id);
+    }
+    return user;
   }
 
   // return status code => CREATED

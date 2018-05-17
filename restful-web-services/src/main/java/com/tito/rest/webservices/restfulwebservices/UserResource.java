@@ -1,8 +1,13 @@
 package com.tito.rest.webservices.restfulwebservices;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
 import com.tito.rest.webservices.restfulwebservices.user.User;
 import com.tito.rest.webservices.restfulwebservices.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+//import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,12 +33,19 @@ public class UserResource {
   // GET /users/{id} - details of a specific user
   //retrieveUser(int id)
   @GetMapping("/users/{id}")
-  public User retrieveUser(@PathVariable int id) {
+  public Resource<User> retrieveUser(@PathVariable int id) {
     User user = service.findOne(id);
     if (user == null) {
       throw new UserNotFoundException("id-" + id);
     }
-    return user;
+    //HATEOAS
+    //"all users", SERVER_PATH + "/users" <= hard-coded example that would hinder maintenance efforts
+    //retrieveAllUsers
+    Resource<User> resource = new Resource<User>(user);
+    ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+    resource.add(linkTo.withRel("all-users"));
+
+    return resource;
   }
 
   // return status code => CREATED

@@ -52,4 +52,14 @@ public class UserResource {
 //    return "/users/" + savedUser.getId(); //my attempt
     return ResponseEntity.created(uriLocation).build(); //returns a 201 status code => 'Created'
   }
+
+  // this deleteUser method has a return type of void the void return type
+  // translates to a 200 status if everything works fine & throws an exception if not
+  @DeleteMapping("/users/{id}")
+  public void deleteUser(@PathVariable int id) {
+    User user = service.deleteById(id);
+    if (user == null) {
+      throw new UserNotFoundException("id-" + id);
+    }
+  }
 }

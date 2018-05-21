@@ -1,14 +1,16 @@
 package com.tito.rest.webservices.restfulwebservices.filtering;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = {"field1"}) //another way to eliminate a field from **any** JSON response
+//@JsonIgnoreProperties(value = {"field1"}) //another way to eliminate a field from **any** JSON response
+@JsonFilter("SomeBeanFilter")
 public class SomeBean {
   private String field1;
   private String field2;
 
-  @JsonIgnore //eliminates the field from **any** JSON response - better for maintainability
+//  @JsonIgnore //eliminates the field from **any** JSON response - better for maintainability
   private String field3;
 
   public SomeBean(String field1, String field2, String field3) {

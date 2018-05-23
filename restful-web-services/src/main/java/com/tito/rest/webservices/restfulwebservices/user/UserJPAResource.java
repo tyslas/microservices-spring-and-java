@@ -101,13 +101,12 @@ public class UserJPAResource {
     post.setUser(user);
     postRepository.save(post);
 
-//    String uriLocation = "/users/" + savedUser.getId(); //my attempt
+//    String uriStringLocation = "/jpa/users/${id}/posts" + post.getId(); //my attempt
     URI uriLocation = ServletUriComponentsBuilder
         .fromCurrentRequest() //captures the root URI "/jpa/users"
         .path("/{id}") //captures the id of the resource created
         .buildAndExpand(post.getId()) //puts the full path together
         .toUri(); //creates a URI data type
-
 //    return "/users/" + savedUser.getId(); //my attempt
     return ResponseEntity.created(uriLocation).build(); //returns a 201 status code => 'Created'
   }

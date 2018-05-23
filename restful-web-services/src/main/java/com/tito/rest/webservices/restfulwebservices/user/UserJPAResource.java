@@ -24,6 +24,9 @@ public class UserJPAResource {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private PostRepository postRepository;
+
   // GET /user - details of all users
   //retrieveAllUsers
   @GetMapping("/jpa/users")
@@ -84,5 +87,28 @@ public class UserJPAResource {
     }
 
     return userOptional.get().getPosts();
+  }
+
+  @PostMapping("/jpa/users/{id}/posts")
+  public ResponseEntity<Object> createPost(@PathVariable int id, @RequestBody Post post) {
+    Optional<User> userOptional = userRepository.findById(id); //Optional is returned to avoid returning null
+
+    if (!userOptional.isPresent()) {
+      throw new UserNotFoundException("id-" + id);
+    }
+
+    User user = userOptional.get();
+    post.setUser(user);
+    postRepository.save(post);
+
+//    String uriLocation = "/users/" + savedUser.getId(); //my attempt
+    URI uriLocation = ServletUriComponentsBuilder
+        .fromCurrentRequest() //captures the root URI "/jpa/users"
+        .path("/{id}") //captures the id of the resource created
+        .buildAndExpand(post.getId()) //puts the full path together
+        .toUri(); //creates a URI data type
+
+//    return "/users/" + savedUser.getId(); //my attempt
+    return ResponseEntity.created(uriLocation).build(); //returns a 201 status code => 'Created'
   }
 }

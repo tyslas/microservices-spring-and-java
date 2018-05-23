@@ -1,6 +1,5 @@
 package com.tito.rest.webservices.restfulwebservices.user;
 
-import com.tito.rest.webservices.restfulwebservices.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -74,5 +73,16 @@ public class UserJPAResource {
   @DeleteMapping("/jpa/users/{id}")
   public void deleteUser(@PathVariable int id) {
     userRepository.deleteById(id);
+  }
+
+  @GetMapping("/jpa/users/{id}/posts")
+  public List<Post> retrieveAllUserPosts(@PathVariable int id) {
+    Optional<User> userOptional = userRepository.findById(id); //Optional is returned to avoid returning null
+
+    if (!userOptional.isPresent()) {
+       throw new UserNotFoundException("id-" + id);
+    }
+
+    return userOptional.get().getPosts();
   }
 }

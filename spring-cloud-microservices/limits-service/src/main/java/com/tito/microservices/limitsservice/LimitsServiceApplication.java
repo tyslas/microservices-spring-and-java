@@ -1,4 +1,4 @@
-package com.in28minutes.microservices.limitsservice;
+package com.tito.microservices.limitsservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

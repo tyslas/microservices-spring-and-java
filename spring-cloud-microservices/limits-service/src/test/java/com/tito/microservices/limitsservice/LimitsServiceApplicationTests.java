@@ -1,4 +1,4 @@
-package com.in28minutes.microservices.limitsservice;
+package com.tito.microservices.limitsservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LimitsConfigController {
 
   //read min & max values from the configuration
-  //configuration currently found in application.properties
+  //configuration currently found in bootstrap.properties
   @Autowired
   private Configuration configuration;
 

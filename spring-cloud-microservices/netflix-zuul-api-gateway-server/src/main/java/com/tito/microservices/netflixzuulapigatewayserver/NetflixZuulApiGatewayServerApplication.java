@@ -21,3 +21,4 @@ public class NetflixZuulApiGatewayServerApplication {
 	  return Sampler.ALWAYS_SAMPLE;
   }
 }
+ 
